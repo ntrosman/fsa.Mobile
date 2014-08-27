@@ -1,0 +1,128 @@
+﻿<div class="row row-modified">
+    <table class="table table-modified table-modified-btm-brdr">            
+        <tbody>
+            <tr>
+                <td class="td-tskd-left">
+                    <ul class="ul-tskd-left">
+                        <li>{{tskD.TSK.CustomerName}}</li>
+                        <li class="task-status-li">SR: {{tskD.TSK.ServiceRequestNumber}}</li>
+                    </ul>
+                </td>
+                <td class="td-tskd-right">
+                    <ul class="ul-tskd-right">
+                        <li>Task: *</li>
+                    </ul>
+                </td>
+            </tr>                      
+        </tbody>                            
+    </table>
+    <table class="table table-modified table-modified-btm-brdr">            
+        <tbody>
+            <tr>
+                <td class="td-al-lft">
+                    Task Description
+                </td>
+            </tr> 
+            <tr>
+                <td class="td-al-lft">
+                    <textarea maxlength="1024" ng-model="taskDescription" class="form-control" />
+                </td>
+            </tr>                      
+        </tbody>                            
+    </table>
+    <table class="table table-modified table-modified-btm-brdr">            
+        <tbody>
+            <tr>
+                <td class="td-al-lft">
+                    Task Info
+                </td>
+            </tr> 
+            <tr>
+                <td class="td-al-rt">SR Date ({{tskD.SCH.SchTimeZone}}):</td>
+                <td class="td-al-rt">{{tskD.TSK.incidentTempDate}}</td>
+            </tr> 
+            <tr>
+                <td class="td-al-rt">Modality, Model:</td>
+                <td class="td-al-rt">{{tskD.INF.InfoModality}}, {{tskD.INF.InfoModel}}</td>
+            </tr>                      
+            <tr>
+                <td class="td-al-rt">SID, PO:</td>
+                <td class="td-al-rt">{{tskD.INF.InfoSID}}, {{tskD.INF.InfoPO}}</td>
+            </tr> 
+            <tr>
+                <td class="td-al-rt">Priority, Status:</td>
+                <td class="td-al-rt">{{tskD.INF.InfoPriority}}, {{tskD.TSK.Status}}</td>
+            </tr> 
+            <tr>
+                <td class="td-al-rt">Planned Start:</td>
+                <td class="td-al-rt">{{tskD.SCH.SchPlannedStartDate | date:'MM-dd-yyyy hh:mm a'}}</td>
+            </tr> 
+            <tr>
+                <td class="td-al-rt">Planned End:</td>
+                <td class="td-al-rt">{{tskD.SCH.SchPlannedEndDate | date:'MM-dd-yyyy hh:mm a'}}</td>
+            </tr> 
+        </tbody>                            
+    </table>
+    <table class="table table-modified table-modified-btm-brdr">            
+        <tbody>
+            <tr>
+                <td class="td-al-lft">
+                    Customer Info
+                </td>
+            </tr> 
+            <tr>
+                <td class="td-al-rt">Contact: </td>
+                <td class="td-al-rt">
+                    <table class="tbl-tskd-li-top">
+                        <tr>
+                            <td class="td-li-top-right">{{tskD.TSK.ContactName}}</td>
+                            <td class="td-li-top-left">{{tskD.TSK.Phone}}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr> 
+            <tr>
+                <td class="td-al-rt">Incident Address:</td>
+                <td class="td-al-rt">{{tskD.INF.InfoAddress}}</td>
+            </tr>                      
+            <tr>
+                <td class="td-al-rt">Room Number:</td>
+                <td class="td-al-rt">{{tskD.INF.InfoRoomNumber}}</td>
+            </tr> 
+        </tbody>                            
+    </table>
+    <table class="table table-modified table-modified-btm-brdr">            
+        <tbody>
+            <tr>
+                <td class="td-al-lft">
+                    Contract Info
+                </td>
+            </tr> 
+            <tr>
+                <td colspan="2" class="td-al-rt">{{tskD.ENT.EntContractNumber}}, {{tskD.ENT.EntCoverageName}}</td>
+            </tr> 
+            <tr>
+                <td colspan="2" class="td-al-rt">{{tskD.ENT.EntCoverageDescription}}</td>
+            </tr>                      
+            <tr>
+                <td class="td-al-rt">Start Date:</td>
+                <td class="td-al-rt">{{tskD.ENT.EntContractStart | date:'MM-dd-yyyy hh:mm a'}}</td>
+            </tr>
+            <tr>
+                <td class="td-al-rt">End Date:</td>
+                <td class="td-al-rt">{{tskD.ENT.EntContractEnd | date:'MM-dd-yyyy hh:mm a'}}</td>
+            </tr> 
+        </tbody>                            
+    </table>
+    <table class="al-btn-tbl">
+        <tr><td colspan="2" class="chEtaMsg" id="createTskErr"></td></tr>                      
+        <tr>
+            <td class="al-btn-td">
+                <input type="button" value="Save" ng-click="createNewTask();" class="gen-btn al-btn" />               
+            </td>
+            <td class="al-btn-td">
+                <input type="button" value="Cancel" ng-click="BackToTaskDetail();" class="gen-btn al-btn" />
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,84 @@
+﻿<div class="row row-adjust">
+    <div class="row">
+        <table class="table table-modified">            
+            <tbody>
+                <tr>
+                    <td class="td-tskd-left">
+                        <ul class="ul-tskd-left">
+                            <li>{{tskD.TSK.CustomerName}}</li>
+                            <li class="task-status-li" ng-show="tskD.TSK.Status!='Assigned'">{{tskD.TSK.Status}}</li>
+                            <li ng-show="tskD.TSK.Status=='Assigned'"><select ng-model="statusOption" ng-options="c.name for c in statusOptions" class="gen-slct"></select><input type="button" value="Update" ng-click="acceptTask();" class="gen-btn acceptTask"/></li>
+                        </ul>
+                    </td>
+                    <td class="td-tskd-right">
+                        <ul class="ul-tskd-right">
+                            <li>Task: {{tskD.TSK.TaskNumber}}</li>
+                            <li>SR: {{tskD.TSK.ServiceRequestNumber}}</li>
+                        </ul>
+                    </td>
+                </tr>  
+                <tr><td colspan="2" class="tskErrMsg" id="tskErr"></td></tr>                   
+            </tbody>                            
+        </table>
+    </div>
+</div>
+
+<table class="table table-modified">
+    <tbody>
+         <tr>
+            <td class="td-al-lft">SR Open Date:</td>
+            <td class="td-al-rt">{{tskD.TSK.incidentTempDate}} ({{tskD.SCH.SchTimeZone}})</td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Start Date:</td>
+            <td class="td-al-rt" id="tdStartDate">
+                <input type="text" id="schStDt" ng-model="scheduleStartDate" data-date-format="mm-dd-yyyy" readonly bs-datepicker class="form-control form-control-mdf form-control-date" id="etaStDate" />
+                <button class="btn-calendar" data-toggle="datepicker"><img src="../Images/calendar.jpg" width="25px" height="25px" /></button>
+                <span class="spn-tme-zne">({{tskD.SCH.SchTimeZone}})</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Start Time:</td>
+            <td class="td-al-rt">
+                <div id="tme-start-chg-eta">
+                    <input type="text" ng-model="scheduleStartTime" bs-timepicker readonly class="form-control form-control-mdf form-control-time" />
+                    <button type="button" class="btn-clock" data-toggle="timepicker"><img src="../Images/clock.jpg" width="25px" height="25px" /></button>
+                    <span class="spn-tme-zne">({{tskD.SCH.SchTimeZone}})</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">End Date:</td>
+            <td class="td-al-rt" id="tdEndDate">
+                <input type="text" id="schEnDt" ng-model="scheduleEndDate" data-date-format="mm-dd-yyyy" bs-datepicker readonly class="form-control form-control-mdf form-control-date" />
+                <button type="button" class="btn-calendar" data-toggle="datepicker"><img src="../Images/calendar.jpg" width="25px" height="25px" /></button>
+                <span class="spn-tme-zne">({{tskD.SCH.SchTimeZone}})</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">End Time:</td>
+            <td class="td-al-rt">
+                <div id="tme-end-chg-eta"> 
+                    <input type="text" ng-model="scheduleEndTime" bs-timepicker readonly class="form-control form-control-mdf form-control-time" />
+                    <button type="button" class="btn-clock" data-toggle="timepicker"><img src="../Images/clock.jpg" width="25px" height="25px" /></button>
+                    <span class="spn-tme-zne">({{tskD.SCH.SchTimeZone}})</span>
+                </div>
+            </td>
+        </tr>                      
+        <tr>
+            <td colspan="2" class="td-al-rt" id="eta-btn-td">
+                <table class="al-btn-tbl">
+                    <tr><td colspan="2" class="chEtaMsg" id="chEtaErrMain"></td></tr>                      
+                    <tr>
+                        <td class="al-btn-td">
+                            <input type="button" value="Save" ng-click="changeEta();" class="gen-btn al-btn" />               
+                        </td>
+                        <td class="al-btn-td">
+                            <input type="button" value="Cancel" ng-click="BackToTaskDetail();" class="gen-btn al-btn" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table> 

@@ -1,0 +1,141 @@
+﻿<div class="row row-adjust" id="div-hdr-lbr">
+    <div class="row">
+        <table class="table table-modified">            
+            <tbody>
+                <tr>
+                    <td class="td-tskd-left">
+                        <ul class="ul-tskd-left">
+                            <li>{{tskD.TSK.CustomerName}}</li>
+                            <li class="task-status-li"> {{tskD.TSK.Status}}</li>
+                        </ul>
+                    </td>
+                    <td class="td-tskd-right">
+                        <ul class="ul-tskd-right">
+                            <li>Task: {{tskD.TSK.TaskNumber}}</li>
+                            <li>SR: {{tskD.TSK.ServiceRequestNumber}}</li>
+                        </ul>
+                    </td>
+                </tr> 
+                <tr><td colspan="2" class="tskErrMsg" id="tskErr"></td></tr>
+            </tbody>                            
+        </table>
+    </div>
+</div>
+<table class="table" id="tbl-hdr-lbr">
+    <tbody>
+        <tr>
+            <td class="td-al-lft">SR Open Date:</td>
+            <td class="td-al-rt">{{tskD.TSK.incidentTempDate}} ({{tskD.SCH.SchTimeZone}})</td>
+        </tr>
+        <tr ng-show="false">
+            <td SR Type ID: {{tskD.TSK.SRTypeID}}>
+</td>
+            </tr>
+        <tr>
+            <td class="td-al-lft">Reason:</td>
+            <td class="td-al-rt">
+                <select id="Select1" ng-model="reason" class="form-control form-control-mdf">
+                    <option ng-selected="reason==rsn.ReasonCode" ng-repeat="rsn in reasonOptions" value="{{rsn.ReasonCode}}">{{rsn.ReasonName}}</option>                  
+                </select>               
+            </td>
+        </tr>                             
+        <tr>
+            <td class="td-al-lft">Start Date:</td>
+            <td class="td-al-rt" id="tdLbrStartDate">
+                <input type="text" id="lbrStDt" ng-model="startDate" data-date-format="mm-dd-yyyy" bs-datepicker readonly class="form-control form-control-mdf form-control-date" />
+                <button class="btn-calendar" data-toggle="datepicker"><img src="../Images/calendar.jpg" width="25px" height="25px" /></button>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Start Time:</td>
+            <td class="td-al-rt"> 
+                <div id="tme-add-labor">                      
+                    <input type="text" id="lbrStTm" ng-model="startTime" bs-timepicker readonly class="form-control form-control-mdf form-control-time-addl" />
+                    <button type="button" class="btn-clock" data-toggle="timepicker"><img src="../Images/clock.jpg" width="25px" height="25px" /></button> 
+                    <span class="spn-tme-zne">({{tskD.SCH.SchTimeZone}})</span>  
+                </div>
+			</td>
+        </tr>                             
+        <tr>
+            <td class="td-al-lft">Hours/Minutes:</td>
+            <td class="td-al-rt">
+                <input id="laborHour" type="text" maxlength="2" ng-model="hours" class="form-control form-control-mdf form-control-date-ro" />            
+                <select id="laborMinuteSelect" ng-model="minutes" class="form-control form-control-mdf form-control-time-ro">
+                    <option value="00" selected="selected">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                    <option value="59">59</option>
+                </select>
+            </td>
+        </tr>                           
+         <!--tr>
+            <td class="td-al-lft">UOM:</td>
+            <td class="td-al-rt">
+                <input type="text" ng-model="UOM" class="form-control form-control-mdf" readonly value="HR" />
+            </td>
+        </tr -->
+         <tr>
+            <td class="td-al-lft">End Date/Time:</td>
+            <td class="td-al-rt">
+                <input type="text" ng-model="endDate" readonly class="form-control form-control-mdf form-control-date-ro" />
+                <input type="text" ng-model="endTime" readonly class="form-control form-control-mdf form-control-time-ro" />
+			</td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Sub Component:</td>
+            <td class="td-al-rt">
+                <a class="lnk-prd-itms-tgl" ng-click="showPrdItms();">{{subComponentName}}</a>                
+                <div ng-show="tskD.TSK.installFlg=='yes' && tskD.TSK.SystemID != '' && isUpdateScreen==''">{{tskD.TSK.ProductName}}</div>                              
+                <div ng-show="tskD.TSK.installFlg=='yes' && tskD.TSK.SystemID != '' && isUpdateScreen!=''">{{productName}}</div>                              
+            </td>
+        </tr>                            
+          <tr>
+            <td colspan="2" class="td-al-rt">
+                <table class="al-btn-tbl">
+                    <tr ng-show="tskD.TSK.installFlg=='yes' && tskD.TSK.SystemID != ''"><td colspan="3" id="td_install">Note: For pre install / install labor entries, oracle will add random subcomponent to this Labor Record. This is to allow completion of this debrief.<td></tr>   
+                    <tr ng-show="syncStatus=='E '"><td colspan="3" id="sync-err-msg">{{syncError}}<td></tr>                             
+                    <tr><td colspan="3" class="addLbrErrMsg" id="addLbrErrMain"></td></tr>                             
+                    <tr>
+                        <td class="al-btn-td lbr-btn">
+                            <input type="button" value="Save" ng-click="addLabor(false);" class="gen-btn al-btn" />               
+                        </td>
+                        <td class="al-btn-td lbr-btn" ng-show="isUpdateScreen==''">
+                            <input type="button" value="Save & Next" ng-click="addLabor(true);" class="gen-btn al-btn" />               
+                        </td>
+                        <td class="al-btn-td lbr-btn" ng-show="syncStatus=='E '">
+                            <input type="button" value="Delete / Revert*" ng-click="DeleteLaborDebriefByID();" class="gen-btn al-btn" />               
+                        </td>
+                        <td class="al-btn-td lbr-btn">
+                            <input type="button" value="Cancel" ng-click="BackToLabors();" class="gen-btn al-btn" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="al-btn-td lbr-btn" ng-show="syncStatus=='E '">
+                            *Revert if record exist in oracle              
+                       </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>    
+
+<div id="div-product-items" class="row">
+   
+    
+    <!--<table ng-repeat="(key, pit) in pits">
+        <tr>
+            <td class="prd-itm-hdg" id="prd-itm-hdg-{{key}}">
+                <a class="lnk-prd-itms-tgl" onclick="togglePrdItms('{{key}}');"><span id="spn-itm-hdg-{{key}}">+</span> {{pdes[key]}}</a>
+            </td>
+        </tr>
+        <tr>            
+            <td class="prd-itms" id="prd-itms-{{key}}">
+                <table>
+                    <tr ng-repeat="pi in pit"><td><a class="lnk-prd-itms-tgl" onclick="selectPrdItm('{{pi.instanceID}}');">{{pi.description}}</a></td></tr>
+                </table>
+            </td>
+        </tr>
+    </table>-->
+</div>

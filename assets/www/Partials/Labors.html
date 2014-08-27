@@ -1,0 +1,90 @@
+﻿<div class="row row-adjust">
+    <ul class="nav nav-pills">
+        <li id="li.TaskDetail.Task" class="menu-item col-xs-6 backToTsdk" ng-class="{active:currentDiv == 1}"><a href="" ng-click="currentDiv = 1; BackToTaskDetail();">Task Detail</a></li>
+        <li id="li.TaskDetail.Schedule" class="menu-item col-xs-6" ng-class="{active:currentDiv == 2}"><a href="" ng-click="showAddLabor();">Add Labor</a></li>
+    </ul>  
+    <div class="row">
+        <table class="table table-modified">            
+            <tbody>
+                <tr>
+                    <td class="td-tskd-left">
+                        <ul class="ul-tskd-left">
+                            <li>{{tskD.TSK.CustomerName}}</li>
+                            <li class="task-status-li">{{tskD.TSK.Status}}</li>
+                        </ul>
+                    </td>
+                    <td class="td-tskd-right">
+                        <ul class="ul-tskd-right">
+                            <li>Task: {{tskD.TSK.TaskNumber}}</li>
+                            <li>SR: {{tskD.TSK.ServiceRequestNumber}}</li>
+                        </ul>
+                    </td>
+                </tr>                        
+                <tr><td colspan="2" class="tskErrMsg" id="tskErr"></td></tr>
+                <tr><td colspan="2" class="lbrSusMsg" id="lbrMsg"></td></tr>
+                <tr><td colspan="2" class="lbrErrMsg" id="lbrErr"></td></tr>
+            </tbody>                            
+        </table>
+         <table class="table table-condensed table-hover" ng-hide="noOfLabors>0">
+            <tbody>
+                <tr>
+                    <td class="col-xs-8 td-modified">
+                        There are no Labor entries for this task.
+                    </td>
+                </tr>
+                </tbody>
+             </table>
+    <table class="table tbl-lbr table-hover" ng-show="noOfLabors>0">
+        <tbody>
+            <tr>
+                <td class="lbr-hdg">Sync</td>
+                <td class="lbr-hdg">Date/Time <span class="spn-tme-zne">({{tskD.SCH.SchTimeZone}})</span></td>
+                <td class="lbr-hdg">Reason</td>
+                <td class="lbr-hdg">Duration</td>
+            </tr>
+            <tr ng-repeat="lbr in labors" ng-show="lbr.SqlID==''&&lbr.LocalID==''">
+                 <td class="td-lbr-val lbr-sync"></td>
+                <td class="td-lbr-val"><a href="#/tasks/{{tskD.TSK.ID}}/labor/{{lbr.DebriefLineID}}"><span class="lbrListSpn">{{lbr.StartDate | date:'MM-dd-yyyy hh:mm a'}}</span></a></td> 
+                <td class="td-lbr-val"><a href="#/tasks/{{tskD.TSK.ID}}/labor/{{lbr.DebriefLineID}}"><span class="lbrListSpn">{{lbr.Reason}}</span></a></td>
+                <td class="td-lbr-val"><a href="#/tasks/{{tskD.TSK.ID}}/labor/{{lbr.DebriefLineID}}"><span class="lbrListSpn">{{lbr.Duration}}</span></a></td>                   
+            </tr>
+            <tr ng-repeat="lbr in labors" ng-show="lbr.SqlID!=''&&lbr.LocalID==''">
+                <td class="td-lbr-val lbr-sync"><span ng-show="lbr.SynchStatus=='P '">*</span><span id="lbr-sync-err" ng-show="lbr.SynchStatus!='P '">Err</span></td>
+                <td class="td-lbr-val"><a href="#/tasks/{{tskD.TSK.ID}}/labor/{{lbr.SqlID}}"><span class="lbrListSpn">{{lbr.StartDate | date:'MM-dd-yyyy hh:mm a'}}</span></a></td> 
+                <td class="td-lbr-val"><a href="#/tasks/{{tskD.TSK.ID}}/labor/{{lbr.SqlID}}"><span class="lbrListSpn">{{lbr.SQLReasonName}}</span></a></td>
+                <td class="td-lbr-val"><a href="#/tasks/{{tskD.TSK.ID}}/labor/{{lbr.SqlID}}"><span class="lbrListSpn">{{lbr.Duration}}</span></a></td>                   
+            </tr> 
+             <tr ng-repeat="lbr in labors" ng-show="lbr.SqlID==''&&lbr.LocalID!=''">
+                <td class="td-lbr-val lbr-sync"><span ng-show="lbr.SynchStatus=='PL'">**</span><span id="Span1" ng-show="lbr.SynchStatus!='PL'&&lbr.SynchStatus!=''">Err</span></td>
+                <td class="td-lbr-val"><a href="#/tasks/{{tskD.TSK.ID}}/labor/{{lbr.LocalID}}"><span class="lbrListSpn">{{lbr.StartDate | date:'MM-dd-yyyy hh:mm a'}}</span></a></td> 
+                <td class="td-lbr-val"><a href="#/tasks/{{tskD.TSK.ID}}/labor/{{lbr.LocalID}}"><span class="lbrListSpn">{{lbr.Reason}}</span></a></td>
+                <td class="td-lbr-val"><a href="#/tasks/{{tskD.TSK.ID}}/labor/{{lbr.LocalID}}"><span class="lbrListSpn">{{lbr.Duration}}</span></a></td>                   
+            </tr>
+            <!--tr ng-repeat="lbr in labors" ng-show="lbr.SqlID==''">
+                 <td class="td-lbr-val lbr-sync"></td>
+                <td class="td-lbr-val"><a href="#/tasks/{{tskD.TSK.ID}}/labor/{{lbr.DebriefLineID}}"><span class="lbrListSpn">{{lbr.StartDate | date:'MM-dd-yyyy hh:mm a'}}</span></a></td> 
+                <td class="td-lbr-val"><a href="#/tasks/{{tskD.TSK.ID}}/labor/{{lbr.DebriefLineID}}"><span class="lbrListSpn">{{lbr.Reason}}</span></a></td>
+                <td class="td-lbr-val"><a href="#/tasks/{{tskD.TSK.ID}}/labor/{{lbr.DebriefLineID}}"><span class="lbrListSpn">{{lbr.Duration}}</span></a></td>                   
+            </tr>
+            <tr ng-repeat="lbr in labors" ng-show="lbr.SqlID!=''">
+                 <td class="td-lbr-val lbr-sync"><span ng-show="lbr.SynchStatus=='P '">*</span><span id="lbr-sync-err" ng-show="lbr.SynchStatus!='P '">Err</span></td>
+                <td class="td-lbr-val"><a href="#/tasks/{{tskD.TSK.ID}}/labor/{{lbr.SqlID}}"><span class="lbrListSpn">{{lbr.StartDate | date:'MM-dd-yyyy hh:mm a'}}</span></a></td> 
+                <td class="td-lbr-val"><a href="#/tasks/{{tskD.TSK.ID}}/labor/{{lbr.SqlID}}"><span class="lbrListSpn">{{lbr.SQLReasonName}}</span></a></td>
+                <td class="td-lbr-val"><a href="#/tasks/{{tskD.TSK.ID}}/labor/{{lbr.SqlID}}"><span class="lbrListSpn">{{lbr.Duration}}</span></a></td>                   
+            </tr-->   
+            <!--<tr ng-repeat="lbr in labors" ng-show="lbr.SqlID==''">
+                 <td class="td-lbr-val lbr-sync"></td>
+                <td class="td-lbr-val"><span class="lbrListSpn">{{lbr.StartDate | date:'MM-dd-yyyy hh:mm a'}}</span></td> 
+                <td class="td-lbr-val"><span class="lbrListSpn">{{lbr.Reason}}</span></td>
+                <td class="td-lbr-val"><span class="lbrListSpn">{{lbr.Duration}}</span></td>                   
+            </tr>
+            <tr ng-repeat="lbr in labors" ng-show="lbr.SqlID!=''">
+                 <td class="td-lbr-val lbr-sync"><span ng-show="lbr.SynchStatus=='P '">*</span><span id="Span1" ng-show="lbr.SynchStatus!='P '">Err</span></td>
+                <td class="td-lbr-val"><span class="lbrListSpn">{{lbr.StartDate | date:'MM-dd-yyyy hh:mm a'}}</span></td> 
+                <td class="td-lbr-val"><span class="lbrListSpn">{{lbr.SQLReasonName}}</span></td>
+                <td class="td-lbr-val"><span class="lbrListSpn">{{lbr.Duration}}</span></td>                   
+            </tr>   -->                   
+        </tbody>
+    </table> 
+</div>                 
+</div>

@@ -1,0 +1,116 @@
+﻿<table class="table table-modified">            
+    <tbody>
+        <tr>
+            <td class="td-tskd-left">
+                <ul class="ul-tskd-left">
+                    <li>{{tskD.TSK.CustomerName}}</li>
+                    <li class="task-status-li"> {{tskD.TSK.Status}}</li>
+                </ul>
+            </td>
+            <td class="td-tskd-right">
+                <ul class="ul-tskd-right">
+                    <li>Task: {{tskD.TSK.TaskNumber}}</li>
+                    <li>SR: {{tskD.TSK.ServiceRequestNumber}}</li>
+                </ul>
+            </td>
+        </tr> 
+        <tr><td colspan="2" class="tskErrMsg" id="tskErr"></td></tr>                
+    </tbody>                            
+</table> 
+
+<table class="table tbl-fda">            
+    <tbody>
+        <tr>
+           <td class="fda-Q-lbl">Is this problem occurring repeatedly at this site?</td>
+            <td class="fda-Q-lbl">
+                <select ng-model="fdaQ1" class="form-control form-control-mdf-small-slct">
+                    <option ng-selected="fdaQ1=='YES'" value="YES">Yes</option>
+                    <option ng-selected="fdaQ1=='No'" value="NO">No</option>
+                </select>
+            </td>
+        </tr>  
+        <tr>
+           <td>Do you know of other specific sites where this problem occurs repeatedly?</td>
+            <td>
+                <select ng-model="fdaQ2" class="form-control form-control-mdf-small-slct">
+                    <option ng-selected="fdaQ2=='YES'" value="YES">Yes</option>
+                    <option ng-selected="fdaQ2=='No'" value="NO">No</option>
+                </select>
+            </td>
+        </tr>    
+        <tr>
+           <td>Does the customer claim that the product does not meet specifications?</td>
+            <td>
+                <select ng-model="fdaQ3" class="form-control form-control-mdf-small-slct">
+                    <option ng-selected="fdaQ3=='YES'" value="YES">Yes</option>
+                    <option ng-selected="fdaQ3=='No'" value="NO">No</option>
+                </select>
+            </td>
+        </tr>   
+        <tr>
+           <td>Does customer claim software fails to operate according to user instructions?</td>
+            <td>
+                <select ng-model="fdaQ4" class="form-control form-control-mdf-small-slct">
+                    <option ng-selected="fdaQ4=='YES'" value="YES">Yes</option>
+                    <option ng-selected="fdaQ4=='No'" value="NO">No</option>
+                </select>
+            </td>
+        </tr>  
+        <tr>
+           <td>Has the customer filed a MedWatch (MDR) for with the FDA?</td>
+            <td>
+                <select ng-model="fdaQ5" class="form-control form-control-mdf-small-slct">
+                    <option ng-selected="fdaQ5=='YES'" value="YES">Yes</option>
+                    <option ng-selected="fdaQ5=='No'" value="NO">No</option>
+                </select>
+            </td>
+        </tr>   
+        <tr>
+            <td colspan="2">Upon entering your username and password you will be creating a document with electronic signature. This is equivalent of written signature. This document is subject to audit by Food and Drug Administration for the purpose of ensuring that corrective action has taken place.</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="td-fda-lgn">
+                <table class="table table-modified">
+                    <tbody>
+                        <tr>
+                            <td class="td-nt-lbl">Login:</td>
+                            <td class="td-cntr-rt">
+                                <input type="text" class="form-control form-control-mdf" ng-model="lbrUsername" />
+                            </td>
+                        </tr>
+                        <tr >
+                            <td class="td-nt-lbl">Password:</td>
+                            <td class="td-cntr-rt">
+                                <input type="password" class="form-control form-control-mdf" ng-model="lbrPassword" />
+                            </td>
+                        </tr>  
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="td-al-rt" id="eta-btn-td">
+                <table class="al-btn-tbl">
+                    <tr><td class="fdaQErrMsg" colspan="2" id="fdaErrMain"></td></tr>                       
+                    <tr>
+                        <td id="onlineDiv" class="al-btn-td" ng-show="online==true">
+                            <input type="button" value="Save" ng-click="updateFDA();" class="gen-btn al-btn" />               
+                        </td>
+                        <td class="al-btn-td">
+                            <input type="button" value="Cancel" ng-click="BackToTaskDetail();" class="gen-btn al-btn" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>                    
+    </tbody>                            
+</table> 
+<div id="offlineDiv">
+    <table class="table tbl-lbr table-hover">                        
+        <tr>
+            <td colspan="2" class="col-xs-8 td-modified">
+                Offline mode. Update FDAs is not allowed.
+            </td>
+        </tr>                               
+    </table>
+</div> 

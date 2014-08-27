@@ -1,0 +1,163 @@
+﻿<div id="TaskDetail" class="row row-adjust">
+    <ul class="nav nav-pills" style="line-height:145px !important;">
+        <li id="li.TaskDetail.Task" class="menu-item col-xs-3" ng-class="{active:currentDiv == 1}"><a href="" ng-click="currentDiv = 1">Task</a></li>
+        <li id="li.TaskDetail.Info" class="menu-item col-xs-3" ng-class="{active:currentDiv == 3}"><a href="" ng-click="currentDiv = 3">Info</a></li>
+        <li id="li.TaskDetail.Schedule" class="menu-item col-xs-3" ng-class="{active:currentDiv == 2}"><a href="" ng-click="currentDiv = 2">Schedule</a></li>
+        <li id="li.TaskDetail.Entitlements" class="menu-item col-xs-3" ng-class="{active:currentDiv == 4}"><a href="" ng-click="currentDiv = 4">Entitlements</a></li>
+    </ul>     
+    <div class="row">
+        <table class="table table-modified">            
+            <tbody>
+                <tr>
+                    <td class="td-tskd-left">
+                        <ul class="ul-tskd-left">
+                            <li>{{tskD.TSK.CustomerName}}</li>
+                            <li class="task-status-li" ng-show="tskD.TSK.Status != 'Assigned' && tskD.TSK.Status != 'Auto In Planning'" >{{tskD.TSK.Status}}</li>
+                            <li ng-show="tskD.TSK.Status=='Assigned'"><select ng-model="statusOption" ng-options="c.name for c in statusOptions" class="gen-slct"></select><input type="button" value="Update" ng-click="acceptTask();" class="gen-btn acceptTask"/></li>
+                            <li ng-show="tskD.TSK.Status=='Auto In Planning'"><select ng-model="statusOptionInPlanning" ng-options="c.name for c in statusOptionsInPlanning" class="gen-slct"></select><input type="button" value="Update" ng-click="acceptTask();" class="gen-btn acceptTask"/></li>
+                        </ul>
+                    </td>
+                    <td class="td-tskd-right">
+                        <ul class="ul-tskd-right">
+                            <li>Task: {{tskD.TSK.TaskNumber}}</li>
+                            <li>SR: {{tskD.TSK.ServiceRequestNumber}}</li>
+                        </ul>
+                    </td>
+                </tr> 
+                <tr>
+                    <td colspan="2" class="tskRtnMsg" id="tskMsg"></td>
+                </tr>  
+                <tr>
+                    <td colspan="2" class="tskErrMsg" id="tskErr"></td>
+                </tr>                      
+            </tbody>                            
+        </table>
+        
+        <div id="div.TaskDetail.Task" ng-show="currentDiv == 1">
+            <table class="table table-modified">
+                <tbody>
+                    <tr>
+                        <td class="td-tskd">
+                            <ul class="ul-tskd">
+                                <!--li class="li-tskd-top">
+                                    <table class="tbl-tskd-li-top">
+                                        <tr>
+                                            <td class="td-li-top-right">Contact: {{tskD.TSK.ContactName}}</td>
+                                            <td class="td-li-top-left">{{tskD.TSK.Phone}}</td>
+                                        </tr>
+                                    </table>
+                                </li-->
+                                 <li  ng-show="mobileBrowser =='No'" style="padding-bottom:10px;">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td class="td-li-top-right">Contact: {{tskD.TSK.ContactName}}</td>
+                                            <td class="td-li-top-left">{{tskD.TSK.Phone}}</td>
+                                        </tr>
+                                    </table>
+                                </li>
+                                <li  ng-show="mobileBrowser =='Yes'" style="padding-bottom:10px;">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td class="td-li-top-right">Contact: {{tskD.TSK.ContactName}}</td>
+                                            <td style="border:none; vertical-align:central; text-align:right; padding-top:0px !important; padding-left:0px !important; padding-right:0px !important;"><a href="tel:{{tskD.TSK.Phone}}">{{tskD.TSK.Phone}}</a></td>
+                                        </tr>
+                                    </table>
+                                </li>
+                                <li class="text-info li-tskd-middle">{{tskD.TSK.ProblemSummary}}</li>
+                                <li class="li-tskd-bottom">{{tskD.TSK.TaskSubject}}</li>
+                            </ul>
+                        </td>
+                    </tr></tbody></table>
+            
+        </div>
+        
+        <div id="div.TaskDetail.Schedule" ng-show="currentDiv == 2">
+            <table class="table table-modified">                
+                <tbody>
+                    <tr>
+                        <td class="text-info td-sch">Planned ({{tskD.SCH.SchTimeZone}})</td>
+                        <td class="text-info td-sch">Scheduled ({{tskD.SCH.SchTimeZone}})</td>
+                    </tr>
+                      <tr>
+                        <td class="text-info td-sch">MM-DD-YYYY</td>
+                        <td class="text-info td-sch">MM-DD-YYYY</td>
+                    </tr>
+                    <tr>
+                        <td class="td-sch-btm">
+                            <ul class="ul-sch">
+                                <li>S: {{tskD.SCH.SchPlannedStartDate | date:'MM-dd-yyyy hh:mm a'}}</li>
+                                <li>E: {{tskD.SCH.SchPlannedEndDate | date:'MM-dd-yyyy hh:mm a'}}</li>
+                            </ul>
+                        </td>
+                        <td class="td-sch-btm">
+                            <ul class="ul-sch">
+                                <li>S: {{tskD.SCH.SchScheduledStartDate | date:'MM-dd-yyyy hh:mm a'}}</li>
+                                <li>E: {{tskD.SCH.SchScheduledEndDate | date:'MM-dd-yyyy hh:mm a'}}</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div id="div.TaskDetail.Info" ng-show="currentDiv == 3">
+            <table class="table table-modified">
+                <tbody>
+                    <tr>
+                        <td class="td-info">
+                            <ul class="ul-info">
+                                <li class="li-info-one"><span>Task:</span> {{tskD.INF.InfoTaskName}}</li>
+                                <li class="text-info li-info-two">Modality, Model</li>
+                                <li class="li-info-one">{{tskD.INF.InfoModality}}, {{tskD.INF.InfoModel}}</li>
+                                <li class="text-info li-info-two">Priority</li>
+                                <li class="li-info-one">{{tskD.INF.InfoPriority}}</li>
+                                <li class="text-info li-info-two">Incident Address</li>
+                                <li>{{tskD.INF.InfoAddress}}</li>
+                                <li class="li-info-one">{{tskD.INF.InfoCityState}} {{tskD.INF.InfoZipCode}}</li>                                
+                            </ul>
+                        </td>
+                        <td class="td-info">
+                            <ul class="ul-info">
+                                <li class="li-info-one"><span>SR:</span> {{tskD.TSK.ProblemSummary}}</li>
+                                <li class="text-info li-info-two">SID, PO</li>
+                                <li class="li-info-one">{{tskD.INF.InfoSID}}, {{tskD.INF.InfoPO}}</li>
+                                <li class="text-info li-info-two">Room Number</li>
+                                <li class="li-info-one">{{tskD.INF.InfoRoomNumber}}</li>
+                                <li class="text-info li-info-two">SR Date ({{tskD.SCH.SchTimeZone}})</li>
+                                <li class="li-info-one">{{tskD.TSK.incidentTempDate}}</li>
+                                <li class="text-info li-info-two">SR Type</li>
+                                <li class="li-info-one">{{tskD.INF.InfoSRType}}<span class="li-info-one" ng-show="tskD.TSK.SRTypeID == '11002' && tskD.TSK.SystemDown == '1'"> (System Down)</span></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="td-info td-sr-hd">SR Notes</td>
+                    </tr>
+                    <tr ng-repeat="tskNt in tskD.taskNotes"><td class="td-info" colspan="2">{{tskNt}}</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="entEmpty" ng-show="currentDiv == 4 && tskD.ENT.ShowDiv == 0">
+            <table class="table table-condensed table-hover">
+            <tbody>
+                <tr>
+                    <td class="col-xs-8 td-modified">
+                        No Contracts at this time.
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+
+        <div id="div.TaskDetail.Entitlements" ng-show="currentDiv == 4 && tskD.ENT.ShowDiv == 1">
+            <ul class="ul-ent">
+                <li class="text-info li-info-two">{{tskD.ENT.EntContractNumber}}, {{tskD.ENT.EntCoverageName}}</li>
+                <li>{{tskD.ENT.EntCoverageDescription}}</li>
+                <li>&nbsp;</li>
+                <li>S: {{tskD.ENT.EntContractStart | date:'MM-dd-yyyy hh:mm a'}}</li>
+                <li>E: {{tskD.ENT.EntContractEnd | date:'MM-dd-yyyy hh:mm a'}}</li>
+            </ul>
+        </div>
+    </div>    
+</div>

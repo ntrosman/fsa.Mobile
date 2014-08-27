@@ -1,0 +1,494 @@
+﻿<div id="TaskDetail" class="row row-adjust">
+    <ul class="nav nav-pills" style="line-height:145px !important;">
+        <li id="li.Materials.Task" class="menu-item col-xs-3 backToTsdk"><a href="" ng-click="BackToTaskDetail();" class="">Task</a></li>
+        <li id="li.Materials.Installed" class="menu-item col-xs-3" ng-class="{active:currentMaterialDiv == 1}"><a href="" ng-click="currentMaterialDiv = 1">Installed</a></li>
+        <li id="li.Materials.Removed" class="menu-item col-xs-3" ng-class="{active:currentMaterialDiv == 2}"><a href="" ng-click="currentMaterialDiv = 2">Removed</a></li>
+        <li id="li.Materials.Changed" class="menu-item col-xs-3" ng-class="{active:currentMaterialDiv == 3}"><a href="" ng-click="currentMaterialDiv = 3">Exchanged</a></li>
+    </ul> 
+    <div class="row">
+        <table class="table table-modified">            
+            <tbody>
+                <tr>
+                    <td class="td-tskd-left-img" ng-show="currentMaterialDiv==1&&online==true">
+                        <a href="" ng-click="showMaterials('');"><img src="../Images/plus.png" height="35px" /></a>
+                    </td>
+                     <td class="td-tskd-left-img" ng-show="currentMaterialDiv==2&&online==true">
+                        <a href="" ng-click="showMaterials('');"><img src="../Images/minus.png" height="35px" /></a>
+                    </td>
+                     <td class="td-tskd-left-img" ng-show="currentMaterialDiv==3&&online==true">
+                        <a href="" ng-click="showExchangedMaterialScreen();"><img src="../Images/exchange.png" height="35px" /></a>
+                    </td>
+                    <td class="td-tskd-left">
+                        <ul class="ul-tskd-left">
+                            <li>{{tskD.TSK.CustomerName}}</li>
+                            <li class="task-status-li">{{tskD.TSK.Status}}</li>
+                        </ul>
+                    </td>
+                    <td class="td-tskd-right">
+                        <ul class="ul-tskd-right">
+                            <li>Task: {{tskD.TSK.TaskNumber}}</li>
+                            <li>SR: {{tskD.TSK.ServiceRequestNumber}}</li>
+                        </ul>
+                    </td>
+                </tr>  
+                <tr><td colspan="3" class="tskRtnMsg" id="materialMsg"></td></tr>
+                <tr><td colspan="3" class="tskErrMsg" id="tskErr"></td></tr>
+            </tbody>                            
+        </table>
+    </div>
+</div>
+<div>
+    <table class="table table-modified">
+        <tr><td colspan="3" class="tskErrMsg" id="materialError"></td></tr>
+    </table>
+</div>
+<div id="installedMaterials" ng-show="currentMaterialDiv==1">
+    <table class="table table-condensed table-hover" ng-show="installedMaterials.length==0">
+        <tbody>
+            <tr>
+                <td class="col-xs-8 td-modified">
+                There are no installed materials.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table tbl-lbr table-hover" ng-show="installedMaterials.length>0">
+        <tbody>
+            <tr>
+                <td class="lbr-hdg">Qty</td>
+                <td class="lbr-hdg">Part #</td>
+                <td class="lbr-hdg">Serial #</td>
+            </tr> 
+            <tr ng-repeat="material in installedMaterials">
+                <td class="td-lbr-val"><span class="lbrListSpn">{{material.quantity}}</span></td>  
+                <td class="td-lbr-val"><span class="lbrListSpn">{{material.partNumber}}</span></td>  
+                <td class="td-lbr-val"><span class="lbrListSpn">{{material.serialNumber}}</span></td>  
+            </tr>                 
+        </tbody>
+    </table>
+</div>
+<div id="removedMaterials" ng-show="currentMaterialDiv==2">
+    <table class="table table-condensed table-hover" ng-show="removedMaterials.length==0">
+        <tbody>
+            <tr>
+                <td class="col-xs-8 td-modified">
+                There are no removed materials.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+     <table class="table tbl-lbr table-hover" ng-show="removedMaterials.length>0">
+        <tbody>
+            <tr>
+                <td class="lbr-hdg">Qty</td>
+                <td class="lbr-hdg">Part #</td>
+                <td class="lbr-hdg">Serial #</td>
+            </tr> 
+            <tr ng-repeat="material in removedMaterials">
+                <td class="td-lbr-val"><span class="lbrListSpn">{{material.quantity}}</span></td>  
+                <td class="td-lbr-val"><span class="lbrListSpn">{{material.partNumber}}</span></td>  
+                <td class="td-lbr-val"><span class="lbrListSpn">{{material.serialNumber}}</span></td>  
+            </tr>                 
+        </tbody>
+    </table>
+</div>
+<div id="changedMaterials" ng-show="currentMaterialDiv==3">
+    <table class="table table-condensed table-hover" ng-show="exchangedMaterials.length==0">
+        <tbody>
+            <tr>
+                <td class="col-xs-8 td-modified">
+                There are no exchanged materials.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+     <table class="table tbl-lbr table-hover" ng-show="exchangedMaterials.length>0">
+        <tbody>
+            <tr>
+                <td class="lbr-hdg">Type</td>
+                <td class="lbr-hdg">Qty</td>
+                <td class="lbr-hdg">Part #</td>
+                <td class="lbr-hdg">Serial #</td>
+            </tr> 
+            <tr ng-repeat="material in exchangedMaterials">
+                <td class="td-lbr-val"><span class="lbrListSpn">{{material.transactionName}}</span></td>  
+                <td class="td-lbr-val"><span class="lbrListSpn">{{material.quantity}}</span></td>  
+                <td class="td-lbr-val"><span class="lbrListSpn">{{material.partNumber}}</span></td>  
+                <td class="td-lbr-val"><span class="lbrListSpn">{{material.serialNumber}}</span></td>  
+            </tr>                
+        </tbody>
+    </table>
+</div>
+<div id="div-product-items" class="row">    
+    
+</div>
+<div id="div-inventory">
+    <div class="row">
+        <table class="table table-modified table-modified-btm-brdr">
+            <tr>
+                <td class="td-al-lft">Inventory Location:</td>
+                <td class="td-al-rt">
+                    <select id="slctSvdLctns" ng-model="savedLocations" class="form-control form-control-mdf">
+                        <option value="Select">Select</option>
+                        <option ng-selected="savedLocation.key==savedLocations" ng-repeat="savedLocation in savedLocationsList" value="{{savedLocation.key}}">{{savedLocation.value}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr><td colspan="3" class="chEtaMsg" id="inventoryErrMsgMain"></td></tr>
+        </table>
+    </div>
+    <table class="table table-condensed table-hover" ng-hide="noOfInventories>0">
+        <tbody>
+            <tr>
+                <td class="col-xs-8 td-modified">
+                    There are no inventories for this location.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table tbl-lbr table-hover" ng-show="noOfInventories>0">
+        <tbody>
+            <tr>
+                <td class="lbr-hdg">Part #</td>
+                <td class="lbr-hdg">Description</td>
+                <td class="lbr-hdg">Qty</td>
+            </tr> 
+            <tr ng-repeat="inventory in inventories">
+                <td class="td-lbr-val"><a href="" ng-click="selectItemToInstall(inventory.inventoryID);"><span class="lbrListSpn">{{inventory.partNumber}}</span></a></td> 
+                <td class="td-lbr-val"><a href="" ng-click="selectItemToInstall(inventory.inventoryID);"><span class="lbrListSpn">{{inventory.description}}</span></a></td>
+                <td class="td-lbr-val"><a href="" ng-click="selectItemToInstall(inventory.inventoryID);"><span class="lbrListSpn">{{inventory.quantity}}</span></a></td> 
+            </tr>                 
+        </tbody>
+    </table>
+</div>
+<div id="itemSelection">
+    <table class="table table-modified">
+        <tr><td colspan="2" class="chEtaMsg" id="invDetErrMsg"></td></tr>                      
+        <tr>
+            <td class="td-al-lft">Part Number:</td>
+            <td class="td-al-rt">{{inventoryDetail.partNumber}}</td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Quantity:</td>
+            <td class="td-al-rt">{{inventoryDetail.quantity}}</td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Description:</td>
+            <td class="td-al-rt">{{inventoryDetail.description}}</td>
+        </tr>
+        <!--<tr>
+            <td class="td-al-lft">Serial Numbers:</td>
+            <td class="td-al-rt">{{inventoryDetail.serialNumbers}}</td>
+        </tr>-->
+        <tr>
+            <td class="td-al-lft td-al-lft-top">Serial Numbers:</td>
+            <td class="td-al-rt">
+                <select ng-model="selectSerialNumber" size="{{selectSize}}">
+                    <option ng-repeat="serialNumber in inventoryDetail.serialNumbers" value="{{serialNumber}}">{{serialNumber}}</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="td-al-rt">
+                <table class="al-btn-tbl">
+                    <tr><td class="chEtaMsg" id="stsErrMain" colspan="2"></td></tr>                      
+                    <tr>
+                        <td class="al-btn-td">
+                            <input type="button" value="Select" ng-click="selectPart();" class="gen-btn al-btn" />               
+                        </td>
+                        <td class="al-btn-td">
+                            <input type="button" value="Cancel" ng-click="BackToMaterials();" class="gen-btn al-btn" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="materialConfirmScreen">
+    <table class="table table-modified">
+        <tr ng-show="nonSerialized!=1">
+            <td class="td-al-lft">Parent Part:</td>
+            <td class="td-al-rt">
+                <input type="text" ng-model="parentPartName" class="form-control" readonly />
+            </td>
+        </tr> 
+        <tr>
+            <td ng-show="currentMaterialDiv==1" class="td-al-lft">Installed Part:</td>
+            <td ng-show="currentMaterialDiv==2" class="td-al-lft">Removed Part:</td>
+            <td class="td-al-rt">
+                <input type="text" ng-model="partDescription" class="form-control" readonly />
+            </td>
+        </tr> 
+        <tr>
+            <td class="td-al-lft">Part #:</td>
+            <td class="td-al-rt">
+                <input type="text" ng-model="partNumber" class="form-control" value="{{tskD.INF.InfoPO}}" readonly />
+            </td>
+        </tr>       
+        <tr ng-show="nonSerialized!=1">
+            <td class="td-al-lft">Serial #:</td>
+            <td class="td-al-rt">
+                <input type="text" ng-model="serialNumber" class="form-control" readonly />
+            </td>
+        </tr> 
+        <tr>
+            <td class="td-al-lft">Quantity:</td>
+            <td class="td-al-rt">               
+                <div ng-show="inventoryDetail.serialNumbers =='NO_SERIAL' || inventoryDetail.serialNumbers == ''"><input type="text" ng-model="partQuantity" class="form-control" /></div>
+                <div ng-show="inventoryDetail.serialNumbers !='NO_SERIAL' && inventoryDetail.serialNumbers != ''"><input type="text" ng-model="partQuantity" class="form-control" readonly/></div>
+            </td>
+        </tr>
+        <tr  ng-show="currentMaterialDiv==2 && nonSerialized!=1">
+            <td class="td-al-lft">Inventory Location:</td>
+            <td class="td-al-rt">
+                <select ng-model="removedSavedLocation" size="{{removedSavedLocationList.length+1}}">
+                    <option ng-selected="removedSavedLocations.key==removedSavedLocation" ng-repeat="removedSavedLocations in removedSavedLocationList" value="{{removedSavedLocations.key}}">{{removedSavedLocations.value}}</option>
+                </select>
+            </td>
+        </tr>
+        <tr ng-show="currentMaterialDiv==2">
+            <td class="td-al-lft">Remove Reason:</td>
+            <td class="td-al-rt">
+                <select id="Select1" ng-model="returnReason" class="form-control form-control-mdf">
+                        <option value="Select" selected="selected">Select</option>
+                        <option ng-repeat="returnReasonVal in returnReasonsList" value="{{returnReasonVal.reasonValue}}">{{returnReasonVal.reasonName}}</option>
+                    </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="td-al-rt">
+                <table class="al-btn-tbl">
+                    <tr><td class="stsErrMsg" id="materialConfirmErr" colspan="2"></td></tr>                      
+                    <tr>
+                        <td class="al-btn-td">
+                            <input ng-show="nonSerialized!=1" type="button" value="Save" ng-click="SaveSelectedMaterial();" class="gen-btn al-btn" />               
+                            <input ng-hide="nonSerialized!=1" type="button" value="Save" ng-click="removeNonSerializedItem();" class="gen-btn al-btn" />               
+                        </td>
+                        <td class="al-btn-td">
+                            <input type="button" value="Cancel" ng-click="BackToMaterials();" class="gen-btn al-btn" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="exchangeMaterialConfirmation">
+    <table class="table table-modified">
+        <tr>
+            <td class="td-al-lft td-exchange-heading" colspan="2">Remove Part</td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Select Part:</td>
+            <td class="td-al-rt">
+                <a href="" ng-click="showMaterials('Removed');">Select part to remove</a>
+            </td>
+        </tr> 
+        <tr ng-show="nonSerialized!=1">
+            <td class="td-al-lft">Parent Part:</td>
+            <td class="td-al-rt">
+                <input type="text" ng-model="removeParentPartName" class="form-control" readonly />
+            </td>
+        </tr>  
+        <tr>
+            <td class="td-al-lft">Removed Part:</td>
+            <td class="td-al-rt">
+                <input type="text" ng-model="removePartDescription" class="form-control" readonly />
+            </td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Part #:</td>
+            <td class="td-al-rt">
+                <input type="text" ng-model="removePartNumber" class="form-control" readonly />
+            </td>
+        </tr>
+        <tr ng-show="nonSerialized!=1">
+            <td class="td-al-lft">Serial #:</td>
+            <td class="td-al-rt">
+                <input type="text" ng-model="removeSerialNumber" class="form-control" readonly />
+            </td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Quantity:</td>
+            <td class="td-al-rt">
+                <!--input type="text" ng-model="removePartQuantity" class="form-control" /-->
+                <div ng-show="nonSerialized==1"><input type="text" ng-model="removePartQuantity" class="form-control" /></div>
+                <div ng-show="nonSerialized!=1"><input type="text" ng-model="removePartQuantity" class="form-control" readonly/></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Inventory Location:</td>
+            <td class="td-al-rt">
+                <select ng-model="removedSavedLocation" size="{{removedSavedLocationList.length+1}}">
+                    <option ng-selected="removedSavedLocations.key==removedSavedLocation" ng-repeat="removedSavedLocations in removedSavedLocationList" value="{{removedSavedLocations.key}}">{{removedSavedLocations.value}}</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Remove Reason:</td>
+            <td class="td-al-rt">
+                <select id="Select2" ng-model="removeReturnReason" class="form-control form-control-mdf">
+                        <option value="Select">Select</option>
+                        <option ng-repeat="returnReasonVal in returnReasonsList" value="{{returnReasonVal.reasonValue}}">{{returnReasonVal.reasonName}}</option>
+                    </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-al-lft td-exchange-heading" colspan="2">Install Part</td>
+        </tr>
+        <tr>
+            <td class="td-al-lft"></td>
+            <td class="td-al-rt">
+                <a href="" ng-click="showMaterials('Installed');" ng-show="savedLocations=='Select'">{{savedLocations}} part to install</a>
+                <a href="" ng-click="showMaterials('Installed');" ng-hide="savedLocations=='Select'">{{savedLocations}} - Part to install</a>
+            </td>
+        </tr> 
+        <tr>
+            <td class="td-al-lft">Parent Part:</td>
+            <td class="td-al-rt">
+                <input type="text" ng-model="installParentPartName" class="form-control" readonly />
+            </td>
+        </tr>  
+        <tr>
+            <td class="td-al-lft">Installed Part:</td>
+            <td class="td-al-rt">
+                <input type="text" ng-model="installPartDescription" class="form-control" readonly />
+            </td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Part #:</td>
+            <td class="td-al-rt">
+                <input type="text" ng-model="installPartNumber" class="form-control" readonly />
+            </td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Serial #:</td>
+            <td class="td-al-rt">
+                <input type="text" ng-model="installSerialNumber" class="form-control" readonly />
+            </td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Quantity:</td>
+            <td class="td-al-rt">
+                <!--input type="text" ng-model="installPartQuantity" class="form-control" /-->
+                <div ng-show="inventoryDetail.serialNumbers =='NO_SERIAL' || inventoryDetail.serialNumbers == ''"><input type="text" ng-model="installPartQuantity" class="form-control" /></div>
+                <div ng-show="inventoryDetail.serialNumbers !='NO_SERIAL' && inventoryDetail.serialNumbers != ''"><input type="text" ng-model="installPartQuantity" class="form-control" readonly/></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="td-al-rt">
+                <table class="al-btn-tbl">
+                    <tr><td class="stsErrMsg" id="exchangeMaterialErrMsg" colspan="2"></td></tr>                      
+                    <tr>
+                        <td class="al-btn-td">
+                            <input type="button" value="Save" ng-click="SaveSelectedMaterial();" class="gen-btn al-btn" />               
+                        </td>
+                        <td class="al-btn-td">
+                            <input type="button" value="Cancel" ng-click="BackToMaterials();" class="gen-btn al-btn" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="NonSerializedItemsDiv">
+    <table class="table table-modified table-search-modified">
+        <tr>
+            <td class="td-search-left td-al-lft">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td class="td-al-lft">Item Number:</td>
+                            <td class="td-al-rt">
+                                <input type="text" ng-model="nsItemNumber" class="form-control form-control-mdf" />
+                            </td>                      
+                        </tr>
+                        <tr>
+                            <td class="td-al-lft">Description:</td>
+                            <td class="td-al-rt">
+                                <input type="text" ng-model="nsItemDescription" class="form-control form-control-mdf" />
+                            </td>                                           
+                        </tr>      
+                    </tbody>
+                </table>
+            </td>
+            <td class="td-search-btn">
+                <input type="button" value="GO" ng-click="SearchNonSearilizedItems();" class="gen-btn al-btn search-btn" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="chgCtrErrMsg" id="searchTaskErrMain"></td>
+        </tr>
+    </table>
+    <table class="table tbl-lbr table-hover" ng-show="nonSerializedItemsList.length==0">
+        <tbody>
+            <tr>
+                <td class="col-xs-8 td-modified">
+                There are no items with specified criteria.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table tbl-lbr table-hover" ng-show="nonSerializedItemsList.length>0">
+        <tbody>
+            <tr>
+                <td class="lbr-hdg">Item #</td>
+                <td class="lbr-hdg">Item Description</td>
+            </tr> 
+            <tr ng-repeat="nonSerializedItem in nonSerializedItemsList">
+                <td class="td-lbr-val"><a href="" ng-click="SelectNonSerializedItem(nonSerializedItem.itemNumber)"><span class="lbrListSpn">{{nonSerializedItem.itemNumber}}</span></a></td>  
+                <td class="td-lbr-val"><a href="" ng-click="SelectNonSerializedItem(nonSerializedItem.itemNumber)"><span class="lbrListSpn">{{nonSerializedItem.itemDescription}}</span></a></td>  
+            </tr>                 
+        </tbody>
+    </table>
+</div>
+<div id="preInstallDiv">
+    <table class="table tbl-lbr table-hover">
+        <tbody>
+            <tr>
+                <td class="col-xs-8 td-modified">
+                    Material debrief is not allowed for Pre-Install / New install related tasks.
+                </td>
+            </tr>
+            <tr>
+                <td class="al-btn-td">
+                    <input type="button" value="Back to task" ng-click="BackToTask();" class="gen-btn al-btn" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div id="supportDiv">
+    <table class="table tbl-lbr table-hover">
+        <tbody>
+            <tr>
+                <td class="col-xs-8 td-modified">
+                    Material debrief is not allowed for Support type of tasks.
+                </td>
+            </tr>
+            <tr>
+                <td class="al-btn-td">
+                    <input type="button" value="Back to task" ng-click="BackToTask();" class="gen-btn al-btn" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div id="offlineDiv">
+    <table class="table tbl-lbr table-hover">
+        <tbody>
+            <tr>
+                <td class="col-xs-8 td-modified">
+                    Offline mode. Debrief Material is not allowed.
+                </td>
+            </tr>
+            <!--tr>
+                <td class="td">
+                    <input type="button" value="Cancel" ng-click="BackToTasks();" class="gen-btn al-btn" />
+                </td>
+            </tr-->
+        </tbody>
+    </table>
+</div>  

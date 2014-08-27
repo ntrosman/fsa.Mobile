@@ -1,0 +1,68 @@
+﻿<div class="row row-adjust">
+    <div class="row">
+        <table class="table table-modified">            
+            <tbody>
+                <tr>
+                    <td class="td-tskd-left">
+                        <ul class="ul-tskd-left">
+                            <li>{{tskD.TSK.CustomerName}}</li>
+                            <li class="task-status-li" ng-show="tskD.TSK.Status != 'Assigned' && tskD.TSK.Status != 'Auto In Planning'" >{{tskD.TSK.Status}}</li>
+                            <li ng-show="tskD.TSK.Status=='Assigned'"><select ng-model="statusOption" ng-options="c.name for c in statusOptions" class="gen-slct"></select><input type="button" value="Update" ng-click="acceptTask();" class="gen-btn acceptTask"/></li>
+                            <li ng-show="tskD.TSK.Status=='Auto In Planning'"><select ng-model="statusOptionInPlanning" ng-options="c.name for c in statusOptionsInPlanning" class="gen-slct"></select><input type="button" value="Update" ng-click="acceptTask();" class="gen-btn acceptTask"/></li>
+                        </ul>
+                    </td>
+                    <td class="td-tskd-right">
+                        <ul class="ul-tskd-right">
+                            <li>Task: {{tskD.TSK.TaskNumber}}</li>
+                            <li>SR: {{tskD.TSK.ServiceRequestNumber}}</li>
+                        </ul>
+                    </td>
+                </tr>  
+                <tr><td colspan="2" class="tskErrMsg" id="tskErr"></td></tr>
+            </tbody>                            
+        </table>
+    </div>
+</div>
+<table class="table">
+    <tbody>
+        <tr>
+            <td class="td-nt-lbl">Note Type:</td>
+            <td class="td-nt-ctrl">
+                <select id="selNoteType" ng-model="noteType" class="form-control">
+                    <option value="TAMS_CUST">TAMS Customer Notes</option>
+                    <option value="TAMS_INTL" selected="selected">TAMS Internal</option>
+                </select>
+            </td>
+        </tr>                     
+        <tr>
+            <td class="td-nt-lbl">Description:</td>
+            <td class="td-nt-ctrl">
+                <textarea maxlength="1024" ng-model="noteNotes" class="form-control" />
+            </td>
+        </tr>                      
+        <tr>
+            <td colspan="2" class="td-al-rt">
+                <table class="al-btn-tbl">
+                    <tr><td colspan="2" class="addNteErrMsg" id="addNteErrMain"></td></tr>                      
+                    <tr>
+                        <td id="onlineDiv" class="al-btn-td" ng-show="online==true">
+                            <input type="button" value="Save" ng-click="addNote();" class="gen-btn al-btn" />               
+                        </td>
+                        <td class="al-btn-td">
+                            <input type="button" value="Cancel" ng-click="BackToNotes();" class="gen-btn al-btn" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>    
+<div id="offlineDiv">
+    <table class="table tbl-lbr table-hover">       
+        <tr>
+            <td class="col-xs-8 td-modified">
+                Offline mode. Add Notes is not allowed.
+            </td>
+        </tr>
+    </table>
+</div>  

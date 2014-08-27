@@ -1,0 +1,83 @@
+﻿<table class="table table-modified">
+    <tbody>
+        <tr>
+            <td class="td-al-lft">Whereabouts Type:</td>
+            <td class="td-al-rt">
+                <select id="Select1" ng-model="whereAboutsType" class="form-control form-control-mdf">
+                    <option value="ALTERNATE">Alternate</option>
+                    <option value="OTHER">Other</option>
+                    <option value="OUT_OF_RANGE">Out of Range</option>
+                    <option value="PERSONAL">Personal</option>
+                    <option value="VACATION">Vacation</option>
+                </select>
+            </td>
+        </tr>                             
+        <tr>
+            <td class="td-al-lft">Unavailable Date:</td>
+            <td class="td-al-rt" id="tdUnavailableDate">
+                <input type="text" id="unavailableStDt" ng-model="unavailableDate" data-date-format="mm-dd-yyyy" bs-datepicker readonly class="form-control form-control-mdf form-control-date" />
+                <button class="btn-calendar" data-toggle="datepicker"><img src="../Images/calendar.jpg" width="25px" height="25px" /></button>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Start Time:</td>
+            <td class="td-al-rt"> 
+                <div id="st-tme-whera-about">                      
+                    <input type="text" id="waStTm" ng-model="startTime" bs-timepicker readonly class="form-control form-control-mdf form-control-date" />
+                    <button type="button" class="btn-clock" data-toggle="timepicker"><img src="../Images/clock.jpg" width="25px" height="25px" /></button> 
+                    <!--<span class="spn-tme-zne">({{tskD.SCH.SchTimeZone}})</span>-->  
+                </div>
+			</td>
+        </tr>   
+        <tr>
+            <td class="td-al-lft">Return Date:</td>
+            <td class="td-al-rt" id="tdReturnDate">
+                <input type="text" id="waRtDt" ng-model="returnDate" data-date-format="mm-dd-yyyy" bs-datepicker readonly class="form-control form-control-mdf form-control-date" />
+                <button class="btn-calendar" data-toggle="datepicker"><img src="../Images/calendar.jpg" width="25px" height="25px" /></button>
+            </td>
+        </tr>  
+        <tr>
+            <td class="td-al-lft">Return Time:</td>
+            <td class="td-al-rt"> 
+                <div id="rt-tme-whera-about">                      
+                    <input type="text" id="waRtTm" ng-model="returnTime" bs-timepicker readonly class="form-control form-control-mdf form-control-date" />
+                    <button type="button" class="btn-clock" data-toggle="timepicker"><img src="../Images/clock.jpg" width="25px" height="25px" /></button> 
+                    <!--<span class="spn-tme-zne">({{tskD.SCH.SchTimeZone}})</span>-->  
+                </div>
+			</td>
+        </tr>  
+         <tr>
+            <td class="td-al-lft">Last Update:</td>
+            <td class="td-al-rt">
+                {{lastUpdate}}
+			</td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Last Time:</td>
+            <td class="td-al-rt">
+                {{lastTime}}
+            </td>
+        </tr>    
+        <tr>
+            <td class="td-al-lft">Enter Whereabouts:</td>
+            <td class="td-al-rt">
+                <textarea maxlength="1024" ng-model="whereAbouts" class="form-control form-control-mdf" />
+            </td>
+        </tr>         
+        <tr>
+            <td colspan="2" class="td-al-rt">
+                <table class="al-btn-tbl">
+                    <tr><td colspan="2" class="chEtaMsg" id="waErrMsgMain"></td></tr>                      
+                    <tr>
+                        <td class="al-btn-td">
+                            <input type="button" value="Save" ng-click="SaveWhereAbouts();" class="gen-btn al-btn" />               
+                        </td>
+                        <td class="al-btn-td">
+                            <input type="button" value="Cancel" ng-click="BackToTasks();" class="gen-btn al-btn" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr> 
+    </tbody>
+</table>

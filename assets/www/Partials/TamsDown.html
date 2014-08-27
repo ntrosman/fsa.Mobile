@@ -1,0 +1,86 @@
+﻿<div class="row row-adjust">
+    <div class="row">
+        <table class="table table-modified">            
+            <tbody>
+                <tr>
+                    <td class="td-tskd-left">
+                        <ul class="ul-tskd-left">
+                            <li>{{tskD.TSK.CustomerName}}</li>
+                            <li class="task-status-li">{{tskD.TSK.Status}}</li>
+                        </ul>
+                    </td>
+                    <td class="td-tskd-right">
+                        <ul class="ul-tskd-right">
+                            <li>Task: {{tskD.TSK.TaskNumber}}</li>
+                            <li>SR: {{tskD.TSK.ServiceRequestNumber}}</li>
+                        </ul>
+                    </td>
+                </tr>  
+                <tr><td colspan="2" class="tskErrMsg" id="tskErr"></td></tr>
+            </tbody>                            
+        </table>
+    </div>
+</div>
+<table class="table">
+    <tbody>
+        <tr>
+            <td class="td-al-lft">TAMS Down:</td>
+            <td class="td-al-rt">
+                Is your system down? {{sysDown}}.
+                <br />
+                Is it immediately available for CE? {{sysAvailable}}.
+            </td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Confirm Down:</td>
+            <td class="td-al-rt">
+                <select id="Select1" ng-model="tamsDown" class="form-control form-control-mdf">
+                    <option value="No" ng-selected="cfmDown=='No'">No</option>
+                    <option value="Yes" ng-selected="cfmDown=='Yes'">Yes</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">System Up Date:</td>
+            <td class="td-al-rt" id="tdSystemUpDate">
+                <input type="text" ng-model="systemUpDate" data-date-format="mm/dd/yyyy" bs-datepicker readonly  class="form-control form-control-mdf form-control-date" >
+                <button class="btn-calendar" data-toggle="datepicker"><img src="../Images/calendar.jpg" width="25px" height="25px" /></button>
+                <span class="spn-tme-zne">({{tskD.SCH.SchTimeZone}})</span>
+			</td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">System Up Time:</td>
+            <td class="td-al-rt">
+                <div id="tme-tams-down"> 
+                    <input type="text" ng-model="systemUpTime" bs-timepicker readonly  class="form-control form-control-mdf form-control-time" >
+                    <button type="button" class="btn-clock" data-toggle="timepicker"><img src="../Images/clock.jpg" width="25px" height="25px" /></button>
+                    <span class="spn-tme-zne">({{tskD.SCH.SchTimeZone}})</span>
+                </div>
+			</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="td-al-rt">
+                <table class="al-btn-tbl">
+                    <tr><td colspan="2" class="tmDwnErrMsg" id="tdDwnErrMain"></td></tr>				
+                    <tr>
+                        <td id="onlineDiv" class="al-btn-td" ng-show="online==true">
+                            <input type="button" value="Save" ng-click="updateTamsDown(false);" class="gen-btn al-btn" />               
+                        </td>
+                        <td class="al-btn-td">
+                            <input type="button" value="Cancel" ng-click="BackToTaskDetail();" class="gen-btn al-btn" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div id="offlineDiv">
+    <table class="table tbl-lbr table-hover">       
+        <tr>
+            <td class="col-xs-8 td-modified">
+                Offline mode. Update Counter is not allowed.
+            </td>
+        </tr>
+    </table>
+</div> 

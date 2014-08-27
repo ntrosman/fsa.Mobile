@@ -1,0 +1,57 @@
+﻿<div class="row row-adjust">
+    <ul class="nav nav-pills">
+        <li id="li.TaskDetail.Task" class="menu-item col-xs-6 backToTsdk" ng-class="{active:currentDiv == 1}"><a href="" ng-click="currentDiv = 1; BackToTaskDetail();">Task Detail</a></li>
+        <li id="li.TaskDetail.Schedule" class="menu-item col-xs-6" ng-class="{active:currentDiv == 2}"><a href="" ng-click="showAddNote();">Add Note</a></li>
+    </ul>  
+    <div class="row">
+    <table class="table table-modified">            
+            <tbody>
+                <tr>
+                    <td class="td-tskd-left">
+                        <ul class="ul-tskd-left">
+                            <li>{{tskD.TSK.CustomerName}}</li>
+                            <li class="task-status-li" ng-show="tskD.TSK.Status!='Assigned'">{{tskD.TSK.Status}}</li>
+                            <li ng-show="tskD.TSK.Status=='Assigned'"><select ng-model="statusOption" ng-options="c.name for c in statusOptions" class="gen-slct"></select><input type="button" value="Update" ng-click="acceptTask();" class="gen-btn acceptTask"/></li>
+                        </ul>
+                    </td>
+                    <td class="td-tskd-right">
+                        <ul class="ul-tskd-right">
+                            <li>Task: {{tskD.TSK.TaskNumber}}</li>
+                            <li>SR: {{tskD.TSK.ServiceRequestNumber}}</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr><td colspan="2" class="nteSusMsg" id="nteSusMsg"></td></tr>                        
+                <tr><td colspan="2" class="nteErrMsg" id="nteErrMain"></td></tr>                        
+                <tr><td colspan="2" class="tskErrMsg" id="tskErr"></td></tr>
+            </tbody>                            
+        </table>
+        <table class="table table-condensed table-hover" ng-show="showNotesCount == 0">
+            <tbody>
+                <tr>
+                    <td class="col-xs-8 td-modified">
+                        There are no Notes for this task.
+                    </td>
+                </tr>
+                </tbody>
+             </table>
+    <table class="table table-condensed table-hover table-nts" >
+        <tbody>
+            <tr ng-repeat="nt in notes">
+                <td class="td-nts">
+                    <table>
+                        <tr>
+                            <td class="td-nts-dt">{{nt.DATE}}<sup ng-show="nt.sup==1">New!</sup></td>
+                            <td class="td-nts-mean">{{nt.NOTE_TYPE_MEANING}}</td>
+                        </tr>
+                        <tr>
+                            <td id="td-nts-nte{{nt.ID}}" colspan="2" ng-bind-html-unsafe='nt.NOTE' class="td-nts-nte"></td>
+                            <td id="td-nts-nte2{{nt.ID}}" colspan="2" ng-bind-html-unsafe='nt.Note2' class="td-nts-nte2"></td>
+                        </tr>
+                    </table>                    
+                </td>                    
+            </tr>                      
+        </tbody>
+    </table> 
+</div>                 
+</div>

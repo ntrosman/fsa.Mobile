@@ -1,0 +1,60 @@
+﻿<table class="table table-modified table-search-modified">
+    <tr>
+        <td class="td-search-left">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="td-al-lft">SR Number:</td>
+                        <td class="td-al-rt-small">
+                            <input id="searchSRNumber" type="text" ng-model="searchSRNumber" class="form-control form-control-mdf" />
+                        </td>                      
+                    </tr>
+                    <tr>
+                        <td class="td-al-lft">Task Number:</td>
+                        <td class="td-al-rt-small">
+                            <input id="searchTaskNumber" type="text" ng-model="searchTaskNumber" class="form-control form-control-mdf" />
+                        </td>                                           
+                    </tr>      
+                </tbody>
+            </table>
+        </td>
+        <td class="td-search-btn">
+            <input type="button" value="GO" ng-click="searchTask();" class="gen-btn al-btn search-btn" />
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" class="chgCtrErrMsg" id="searchTaskErrMain"></td>
+    </tr>
+</table>
+<table class="table table-condensed table-hover">
+    <tbody>        
+        <tr ng-show="numberOfResults==0">
+            <td class="col-xs-8 td-modified td-no-result-modified">
+                There are no Tasks with specified values.
+            </td>
+        </tr>   
+        <tr ng-repeat="tsk in tasks">
+            <td class="td-task-img">
+                <a href="#/tasks/{{tsk.ID}}">
+                    <img src="../Images/{{tsk.xImage}}" width="40px" height="40px" />
+                </a>
+            </td>
+            <td class="col-xs-8 td-task-customer">
+                <a href="#/tasks/{{tsk.ID}}">
+                    <ul class="task-ul task-ul-left">
+                        <li class="text-info-li" id="task-customername-truncated">{{tsk.CustomerName}}</li>
+                        <li class="task-status-li"><div id="task-name-truncated">{{tsk.TaskName}}</div></li>
+                    </ul>
+                </a>
+            </td>
+            <td class="col-xs-4 td-task-customer td-task-customer-rt">
+                <a href="#/tasks/{{tsk.ID}}">
+                    <ul class="task-ul">
+                        <li style="color:black">Task: {{tsk.TaskNumber}}</li>
+                        <li style="color:black">SR: {{tsk.ServiceRequestNumber}}</li>
+                    </ul>
+                </a>                        
+            </td>                    
+        </tr>                     
+    </tbody>
+</table>  

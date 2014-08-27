@@ -1,0 +1,29 @@
+﻿<table class="table">
+    <tbody>
+        <tr>
+            <td class="text-info">Login:</td>
+            <td>
+                <input id="Text1" type="text" class="form-control" ng-model="username" onkeyup="EnterLogin(event);" />
+            </td>
+        </tr>
+        <tr >
+            <td class="text-info">Password:</td>
+            <td>
+                <input id="Password1" type="password" class="form-control" ng-model="password" onkeyup="EnterLogin(event);" />
+            </td>
+        </tr>
+        <tr><td class="errorInfo" id="loginError" colspan="2"></td></tr>
+        <tr>
+            <td id="Td1"></td>
+            <td style="vertical-align:bottom;">
+                <input type="checkbox" value="yes" ng-model="rememberme" /> <span class="text-info">Remember me</span> 
+            </td>
+        </tr>
+        <tr>
+            <td id="lblMsg"></td>
+            <td>
+                <input type="button" value="Login" ng-click="verifyLogin();" onkeyup="EnterLogin(event);" class="gen-btn login-btn" />
+            </td>
+        </tr>
+    </tbody>
+</table>

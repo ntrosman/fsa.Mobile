@@ -1,0 +1,32 @@
+﻿<div class="row row-adjust">
+    <ul class="nav nav-pills" style="height:20px;">
+       <li class="menu-item col-xs-12 backToTsdk"><a href="" ng-click="BackToInventory();">Inventory</a></li>
+    </ul>
+</div>
+<table class="table table-modified">
+    <tr><td colspan="2" class="chEtaMsg" id="invDetErrMsg"></td></tr>                      
+    <tr>
+        <td class="td-al-lft">Part Number:</td>
+        <td class="td-al-rt">{{inventoryDetail.partNumber}}</td>
+    </tr>
+    <tr>
+        <td class="td-al-lft">Quantity:</td>
+        <td class="td-al-rt">{{inventoryDetail.quantity}}</td>
+    </tr>
+    <tr>
+        <td class="td-al-lft">Description:</td>
+        <td class="td-al-rt">{{inventoryDetail.description}}</td>
+    </tr>
+    <!--<tr>
+        <td class="td-al-lft">Serial Numbers:</td>
+        <td class="td-al-rt">{{inventoryDetail.serialNumbers}}</td>
+    </tr>-->
+    <tr>
+        <td class="td-al-lft td-al-lft-top">Serial Numbers:</td>
+        <td class="td-al-rt">
+            <table>
+                <tr ng-repeat="serialNumber in inventoryDetail.serialNumbers"><td class="td-al-rt td-al-rt-np">{{serialNumber}}</td></tr>
+            </table>
+        </td>
+    </tr>
+</table>

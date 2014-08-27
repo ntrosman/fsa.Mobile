@@ -1,0 +1,47 @@
+﻿<div id="Tasks" class="row row-adjust">
+    <ul class="nav nav-pills" style="height:20px;">
+        <li id="Tasks.Assigned" class="menu-item col-xs-6" ng-class="{active:currentView == 'Assigned'}"><a href="#/tasks" ng-click="filterTaskView('Assigned');">Assigned (<label id="lblAssigned">{{totalAssigned}}</label>)</a></li>
+        <li id="Tasks.Open" class="menu-item col-xs-6" ng-class="{active:currentView == 'Open'}"><a href="#/tasks" ng-click="filterTaskView('Open');" >Open (<label id="lblOpen">{{totalOpen}}</label>)</a></li>
+    </ul>      
+    <!--<div class="container">-->
+        <table class="table table-condensed table-hover">
+            <tbody>
+                <tr ng-show="totalAssigned==0 && currentView=='Assigned'">
+                    <td class="col-xs-8 td-modified">
+                        There are no Assigned Tasks.
+                    </td>
+                </tr>
+                <tr ng-show="totalOpen==0 && currentView=='Open'">
+                    <td class="col-xs-8 td-modified">
+                        There are no Open Tasks.
+                    </td>
+                </tr>                
+                <tr><td colspan="3" class="tskRtnMsg" id="tskMsg"></td></tr>
+                <tr><td colspan="3" class="tskErrMsg" id="tskErrMain"></td></tr>   
+                <tr class="task-tr" ng-repeat="tsk in tasks | filter:taskFilter">
+                    <td class="td-task-img">
+                        <a href="#/tasks/{{tsk.ID}}">
+                            <img src="../Images/{{tsk.xImage}}" width="40px" height="40px" />
+                        </a>
+                    </td>
+                    <td class="td-task-customer">
+                        <a href="#/tasks/{{tsk.ID}}">
+                            <ul class="task-ul task-ul-left">
+                                <li class="text-info-li" id="task-customername-truncated">{{tsk.CustomerName}}</li>
+                                <li class="task-status-li"><div id="task-name-truncated">{{tsk.TaskName}}</div></li>
+                            </ul>
+                        </a>
+                    </td>
+                    <td class="td-task-customer td-task-customer-rt">
+                        <a href="#/tasks/{{tsk.ID}}">
+                            <ul class="task-ul">
+                                <li style="color:black">Task: {{tsk.TaskNumber}}</li>
+                                <li style="color:black">SR: {{tsk.ServiceRequestNumber}}</li>
+                            </ul>
+                        </a>                        
+                    </td>                    
+                </tr>                     
+            </tbody>
+        </table>            
+    <!--</div>-->
+</div>

@@ -1,0 +1,95 @@
+﻿body {
+    text-align:center;
+    font-family:sans-serif;
+    color:indianred;
+    font-size:10px;
+}
+
+#main_body {
+    margin: 0 auto;
+    text-align: center;
+    width:400px;
+}
+
+td {
+    padding:5px;
+    text-align:left;
+}
+
+.btnCl {
+    cursor:pointer; /*forces the cursor to change to a hand when the button is hovered*/
+    padding:5px 20px; /*add some padding to the inside of the button*/
+    background-color:indianred; /*the colour of the button*/
+    border:1px solid indianred; /*required or the default border for the browser will appear*/
+    /*give the button curved corners, alter the size as required*/
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    /*give the button a drop shadow*/
+    /*-webkit-box-shadow: 0 0 4px rgba(0,0,0, .75);
+    -moz-box-shadow: 0 0 4px rgba(0,0,0, .75);
+    box-shadow: 0 0 4px rgba(0,0,0, .75);*/
+    /*style the text*/
+    color:#f3f3f3;
+    font-size:1.1em;
+}
+
+#txtUser, #txtPwd {
+    padding:5px 20px; /*add some padding to the inside of the button*/
+     border:1px solid indianred; /*required or the default border for the browser will appear*/
+    /*give the button curved corners, alter the size as required*/
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    /*give the button a drop shadow*/
+    /*-webkit-box-shadow: 0 0 4px rgba(0,0,0, .75);
+    -moz-box-shadow: 0 0 4px rgba(0,0,0, .75);
+    box-shadow: 0 0 4px rgba(0,0,0, .75);*/
+    /*style the text*/
+    font-size:1.1em;
+}
+
+.linkTab {
+    cursor:pointer; /*forces the cursor to change to a hand when the button is hovered*/
+    padding:5px 20px; /*add some padding to the inside of the button*/
+    background-color:indianred; /*the colour of the button*/
+    border:1px solid indianred; /*required or the default border for the browser will appear*/
+    /*give the button curved corners, alter the size as required*/
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    /*give the button a drop shadow*/
+    /*-webkit-box-shadow: 0 0 4px rgba(0,0,0, .75);
+    -moz-box-shadow: 0 0 4px rgba(0,0,0, .75);
+    box-shadow: 0 0 4px rgba(0,0,0, .75);*/
+    /*style the text*/
+    color:#f3f3f3;
+    font-size:1.1em;
+    text-decoration:none;
+}
+
+.headerTab td {
+    color:black;
+    text-align:center;
+}
+
+#loadingImage {
+    position:absolute;
+    left:50%;
+    top:50%;
+    display:none;
+}
+
+#acceptLinkTd {
+    text-align:right;
+}
+
+#div_Notes {
+    display: none;
+    color: white;
+    background-color:rgba(128,0,0, 0.8);
+    position:fixed;
+    margin-top:80px;
+    margin-left:20px;
+    max-width:370px;
+}

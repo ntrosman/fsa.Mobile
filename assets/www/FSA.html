@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="fsa">
+
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    <title>Field Service Application</title>
+
+    <!-- CSS Section -->
+    <link href="Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="Content/bootstrap/bootstrap-timepicker.css" rel="stylesheet" />
+    <link href="Content/fsa.css" rel="stylesheet" />
+
+    <!-- Scripts Section -->
+    <script src="Scripts/jquery-1.8.2.min.js"></script>
+    <script src="Scripts/bootstrap-timepicker.js"></script>
+    <script src="Scripts/bootstrap-datepicker.js"></script>
+    <script src="Scripts/fsaApplication.min.js"></script>
+    <script src="Scripts/angular.min.js"></script> 
+    <script src="Scripts/pouchdb-2.1.0.min.js"></script>   
+    <script src="Scripts/fsaAngular.js"></script>
+    <script src="Scripts/angular-ui.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/angular-strap.js"></script>
+    <script src="Scripts/detectmobilebrowser.js"></script>
+
+<body class="body" onload="loaded()">
+
+    <div id="curtain"></div>
+    <div id="hourGlass">
+        <img src="Images/ajax-loader.gif" /><br />Loading...
+    </div>
+    <!-- HEADER -->
+     <div id="body-wrapper">
+    <header class="row row-adjust hdr">
+        <div class="col-xs-1 hdr" id="leftBars">
+            <a onclick="LogOutMenu();">
+                <img src="Images/LeftBars.png" height="25px" width="45px" align="center" />
+            </a>
+            <div id="LogOutDiv">
+                <ul id="leftMenuLogOut">
+                    <li id="liUserName"><span id="spanUserName"></span></li>
+                    <li id="searchTaskLink"><a href="#/searchTask">Search SR/Task</a></li>
+                    <li id="trunkInventoryLink"><a href="#/tasks/{{taskId}}/inventory">Trunk Inventory</a></li>
+                    <li id="whereAboutLink"><a href="#/whereAbout">My Whereabouts</a></li>
+                    <li id="signOutLink"><a href="#" onclick="LogOut();">Sign-Out</a></li>
+                </ul> 
+            </div>
+        </div>
+        <div class="col-xs-3 hdr" id="toshiba-div-wlink">
+            <a href="#/tasks">
+                <img src="Images/Toshiba.png" height="28px" width="110px"/>
+            </a>
+        </div>
+        <div class="col-xs-3 hdr" id="toshiba-div-wOlink">
+            <a href!="#/tasks">
+                <img src="Images/Toshiba.png" height="28px" width="110px"/>
+            </a>
+        </div>
+        <!--div class="col-xs-3 hdr" id="stars-div"><span style="background-color: #FFFFCC">STARS <strong>D</strong></span></div-->
+        <div class="col-xs-3 hdr" id="stars-div"><span style="background-color: #FFFF99; right: 10px;">STARS <strong>D </strong></span>&nbsp<span id="status"><p-inline id="state" display: inline"/></span></div>
+        <span id="status1"><p-inline id="state1" display: inline"/></span>
+        <!--img src='../Images/offline.png' height='15px' /-->    
+        <div class="hdr" id="divContextMenu"></div>
+    </header>
+    </div>
+    <!-- Content Section -->
+   <div id="content-div">
+        <section class="row row-adjust" id="Content" title="content" ng-view>        
+        </section>  
+    </div>
+
+</body>
+</html>

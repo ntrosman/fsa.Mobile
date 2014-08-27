@@ -1,0 +1,129 @@
+﻿<div id="backToTask" class="row row-adjust">
+    <ul class="nav nav-pills">
+        <li class="menu-item col-xs-12 backToTsdk"><a href="" ng-click="BackToTaskDetail();">Task Detail</a></li>
+    </ul>
+</div>
+<div class="row" id="taskDetailDiv">
+    <table class="table table-modified">            
+        <tbody>
+            <tr>
+                <td class="td-tskd-left">
+                    <ul class="ul-tskd-left">
+                        <li>{{tskD.TSK.CustomerName}}</li>
+                        <li class="task-status-li" ng-show="tskD.TSK.Status!='Assigned'">{{tskD.TSK.Status}}</li>
+                        <li ng-show="tskD.TSK.Status=='Assigned'"><select ng-model="statusOption" ng-options="c.name for c in statusOptions" class="gen-slct"></select><input type="button" value="Update" ng-click="acceptTask();" class="gen-btn acceptTask"/></li>
+                    </ul>
+                </td>
+
+                <td class="td-tskd-right">
+                    <ul class="ul-tskd-right">
+                        <li>Task: {{tskD.TSK.TaskNumber}}</li>
+                        <li>SR: {{tskD.TSK.ServiceRequestNumber}}</li>
+                    </ul>
+                </td>
+            </tr> 
+            <tr>
+                <td colspan="2" class="tskRtnMsg" id="tskMsg"></td>
+            </tr>  
+            <tr>
+                <td colspan="2" class="tskErrMsg" id="tskErr"></td>
+            </tr>                      
+        </tbody>                            
+    </table>
+</div>
+<div id="activeContractsMain" class="row">
+   <table class="table tbl-lbr table-hover">
+        <tbody>
+            <tr><td colspan="2" class="chEtaMsg" id="activeContactMsg"></td></tr>   
+            <tr ng-show="noOfActiveContracts==0">
+                <td class="col-xs-8 td-modified">
+                    There are no Active Contracts for this Tasks.
+                </td>
+            </tr>                   
+            <tr ng-show="noOfActiveContracts>0">
+                <td class="lbr-hdg">Entitlement</td>
+                <td class="lbr-hdg">Name</td>
+                <td class="lbr-hdg">Start Date</td>
+                <td class="lbr-hdg">End Date</td>
+            </tr> 
+            <tr ng-repeat="activeContract in activeContracts">
+                <td class="td-lbr-val"><a href="" ng-click="showContractDetails(activeContract.ID)"><span class="lbrListSpn">{{activeContract.Entitlement}}</span></a></td>  
+                <td class="td-lbr-val"><a href="" ng-click="showContractDetails(activeContract.ID)"><span class="lbrListSpn">{{activeContract.Name}}</span></a></td>  
+                <td class="td-lbr-val"><a href="" ng-click="showContractDetails(activeContract.ID)"><span class="lbrListSpn">{{activeContract.StartDate.split(' ')[0]}}</span></a></td>  
+                <td class="td-lbr-val"><a href="" ng-click="showContractDetails(activeContract.ID)"><span class="lbrListSpn">{{activeContract.EndDate.split(' ')[0]}}</span></a></td>  
+            </tr>                   
+        </tbody>
+    </table>
+</div>
+<div id="activeContractsCT" class="row">
+   <table class="table tbl-lbr table-hover">
+        <tbody>
+            <tr><td colspan="2" class="chEtaMsg" id="Td1"></td></tr>   
+            <tr>
+                <td class="lbr-hdg">Name</td>
+                <td class="lbr-hdg">Serial #</td>
+                <td class="lbr-hdg">Start Date</td>
+                <td class="lbr-hdg">End Date</td>
+            </tr> 
+            <tr ng-repeat="activeContract in activeContractsCTList">
+                <td class="td-lbr-val"><a href="" ng-click="showForCT(activeContract[1])"><span class="lbrListSpn">{{activeContract[0].Name}}</span></a></td>  
+                <td class="td-lbr-val"><a href="" ng-click="showForCT(activeContract[1])"><span class="lbrListSpn">{{activeContract[1]}}</span></a></td>  
+                <td class="td-lbr-val"><a href="" ng-click="showForCT(activeContract[1])"><span class="lbrListSpn">{{activeContract[0].StartDate.split(' ')[0]}}</span></a></td>  
+                <td class="td-lbr-val"><a href="" ng-click="showForCT(activeContract[1])"><span class="lbrListSpn">{{activeContract[0].EndDate.split(' ')[0]}}</span></a></td>  
+            </tr>                 
+        </tbody>
+    </table>
+    <table class="table table-modified">
+        <tr>
+            <td class="td-al-lft">
+                <input type="button" value="Back" ng-click="BackToActiveContracts();" class="gen-btn al-btn" />
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="activeContractDetails">
+    <table class="table table-modified">
+        <tr><td colspan="2" class="chEtaMsg" id="activeContactDetMsg"></td></tr>                      
+        <tr>
+            <td class="td-al-lft">Contract #:</td>
+            <td class="td-al-rt">{{activeContract[0].ContractNumber}}</td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Name:</td>
+            <td class="td-al-rt">{{activeContract[0].Entitlement}}</td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Description:</td>
+            <td class="td-al-rt">{{activeContract[0].Description}}</td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Name Part:</td>
+            <td class="td-al-rt">{{activeContract[0].Name}}</td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Type:</td>
+            <td class="td-al-rt">{{activeContract[0].Type}}</td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Serial #:</td>
+            <td class="td-al-rt">{{activeContract[1]}}</td>
+        </tr>
+        <tr ng-show="activeContract[0].ContractType=='CT'">
+            <td class="td-al-lft">Counters:</td>
+            <td class="td-al-rt">{{activeContract[0].Counter}}</td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">Start Date:</td>
+            <td class="td-al-rt">{{activeContract[0].StartDate.split(' ')[0]}}</td>
+        </tr>
+        <tr>
+            <td class="td-al-lft">End Date:</td>
+            <td class="td-al-rt">{{activeContract[0].EndDate.split(' ')[0]}}</td>
+        </tr>
+        <tr>
+            <td class="td-al-lft" colspan="2">
+                <input type="button" value="Close" ng-click="BackToActiveContracts();" class="gen-btn al-btn" />
+            </td>
+        </tr>
+    </table>
+</div>

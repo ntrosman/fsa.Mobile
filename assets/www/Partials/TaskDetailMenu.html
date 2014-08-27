@@ -1,0 +1,49 @@
+﻿<div id="TaskDetailMenu" class="row row-adjust">
+    <table class="table tdTable">
+        <tbody>
+            <tr><td colspan="3" class="chEtaMsg" id="tdmErrMsgMain"></td></tr>
+            <tr>
+                <td class="td-tdm">
+                    <ul class="ul-tdm">                       
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status!='Assigned' && tskD.TSK.Status != 'Auto In Planning' && tskD.TSK.Status != 'Debrief Complete'"><a href="#/tasks/{{taskId}}/materials">Material</a></li>
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status=='Assigned' || tskD.TSK.Status == 'Auto In Planning' || tskD.TSK.Status == 'Debrief Complete'">Material</li>
+                        <!--<li class="text-info li-tdm">Expense</li>-->                        
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status!='Assigned' && tskD.TSK.Status != 'Auto In Planning' && tskD.TSK.Status != 'Debrief Complete'"><a href="#/tasks/{{taskId}}/faxEmail">Fax / Email</a></li>
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status=='Assigned' || tskD.TSK.Status == 'Auto In Planning' || tskD.TSK.Status == 'Debrief Complete'">Fax / Email</li>
+                        <!--<li class="text-info li-tdm">Fax / Email</li>-->
+                        <li class="text-info li-tdm"><a href="#/tasks/{{taskId}}/activeContracts">Active Contracts</a></li>
+                        <li class="text-info li-tdm"><a href="#/tasks/{{taskId}}/create">Create Task</a></li>
+                    </ul>                        
+                </td>
+                <td class="td-tdm">
+                    <ul class="ul-tdm">
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status!='Assigned' && tskD.TSK.Status != 'Auto In Planning' && tskD.TSK.Status != 'Debrief Complete'"><a href="#/tasks/{{taskId}}/changeStatus">Change Status</a></li>
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status=='Assigned' || tskD.TSK.Status == 'Auto In Planning' || tskD.TSK.Status == 'Debrief Complete'">Change Status</li>
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status!='Assigned' && tskD.TSK.Status != 'Auto In Planning' && tskD.TSK.Status != 'Debrief Complete'"><a href="#/tasks/{{taskId}}/changePriority">Change Priority</a></li>
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status=='Assigned' || tskD.TSK.Status == 'Auto In Planning' || tskD.TSK.Status == 'Debrief Complete'">Change Priority</li>
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status!='Assigned' && tskD.TSK.Status != 'Auto In Planning' && tskD.TSK.Status != 'Debrief Complete'"><a href="#/tasks/{{taskId}}/changeEta">Change ETA</a></li>
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status=='Assigned' || tskD.TSK.Status == 'Auto In Planning' || tskD.TSK.Status == 'Debrief Complete'">Change ETA</li>
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status!='Assigned' && tskD.TSK.Status != 'Auto In Planning' && lbrDbrf == 1 && tskD.TSK.Status != 'Debrief Complete'"><a href="#/tasks/{{taskId}}/fdaQuestions">FDA</a></li>
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status=='Assigned' || tskD.TSK.Status == 'Auto In Planning' || lbrDbrf == 0 || tskD.TSK.Status == 'Debrief Complete'">FDA</li>
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status!='Assigned' && tskD.TSK.Status != 'Auto In Planning' && lbrDbrf == 1 && tskD.TSK.Status != 'Debrief Complete'"><a href="#/tasks/{{taskId}}/labors">Labor</a></li>
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status=='Assigned' || tskD.TSK.Status == 'Auto In Planning' || lbrDbrf == 0 || tskD.TSK.Status == 'Debrief Complete'"">Labor</li>
+                        <!--<li class="text-info li-tdm">Labor</li>-->
+                    </ul>                        
+                </td>
+                <td class="td-tdm-lst">
+                    <ul class="ul-tdm">
+                        <li class="text-info li-tdm"><a href="#/tasks/{{taskId}}/notes">Notes</a></li>
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status!='Assigned' && tskD.TSK.Status != 'Auto In Planning' && tskD.TSK.Status != 'Debrief Complete' && tskD.TSK.SRTypeID == '11002' && tskD.TSK.SystemDown == '1'"><a href="#/tasks/{{taskId}}/tamsDown">TAMS Down</a></li>
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status=='Assigned' || tskD.TSK.Status == 'Auto In Planning' || tskD.TSK.Status == 'Debrief Complete' || tskD.TSK.SRTypeID != '11002' || tskD.TSK.SystemDown != '1'">TAMS Down</li>                 
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status!='Assigned' && tskD.TSK.Status != 'Auto In Planning' && lbrDbrf == 1 && tskD.TSK.Status != 'Debrief Complete'"><a href="#/tasks/{{taskId}}/managerApproval">Mgr. Approval</a></li>
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status=='Assigned' || tskD.TSK.Status == 'Auto In Planning' || lbrDbrf==0 || tskD.TSK.Status == 'Debrief Complete'">Mgr. Approval</li>
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status!='Assigned' && tskD.TSK.Status != 'Auto In Planning' && lbrDbrf == 1 && tskD.TSK.Status != 'Debrief Complete'"><a href="#/tasks/{{taskId}}/po">PO</a></li>
+                        <li class="text-info li-tdm" ng-show="tskD.TSK.Status=='Assigned' || tskD.TSK.Status == 'Auto In Planning' || lbrDbrf==0 || tskD.TSK.Status == 'Debrief Complete'">PO</li>
+                        <li class="text-info li-tdm" ng-show="tskD.INF.InfoModality=='CT' && tskD.TSK.Status != 'Auto In Planning' && tskD.TSK.Status!='Assigned' && tskD.TSK.Status != 'Debrief Complete'"><a href="#/tasks/{{taskId}}/changeCounter">Counter</a></li>
+                        <li class="text-info li-tdm" ng-show="tskD.INF.InfoModality!='CT' || tskD.TSK.Status == 'Auto In Planning' || tskD.TSK.Status=='Assigned' || tskD.TSK.Status == 'Debrief Complete'">Counter</li>
+                    </ul>                        
+                </td>                    
+            </tr>                        
+        </tbody>
+    </table>            
+</div>

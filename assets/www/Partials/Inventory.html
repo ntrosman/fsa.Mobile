@@ -1,0 +1,37 @@
+﻿<div class="row">
+    <table class="table table-modified table-modified-btm-brdr">
+        <tr>
+            <td class="td-al-lft">Saved Locations:</td>
+            <td class="td-al-rt">
+                <select id="slctSvdLctns" ng-model="savedLocations" class="form-control form-control-mdf">
+                    <option value="Select">Select</option>
+                    <option ng-selected="savedLocation.key==savedLocations" ng-repeat="savedLocation in savedLocationsList" value="{{savedLocation.key}}">{{savedLocation.value}}</option>
+                </select>
+            </td>
+        </tr>
+        <tr><td colspan="3" class="chEtaMsg" id="inventoryErrMsgMain"></td></tr>
+    </table>
+</div>
+<table class="table table-condensed table-hover" ng-hide="noOfInventories>0">
+    <tbody>
+        <tr>
+            <td class="col-xs-8 td-modified">
+                There are no inventories for this location.
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table class="table tbl-lbr table-hover" ng-show="noOfInventories>0">
+    <tbody>
+        <tr>
+            <td class="lbr-hdg">Part #</td>
+            <td class="lbr-hdg">Description</td>
+            <td class="lbr-hdg">Qty</td>
+        </tr> 
+        <tr ng-repeat="inventory in inventories">
+            <td class="td-lbr-val"><a href="#/inventory/{{savedLocations}}/detail/{{inventory.inventoryID}}"><span class="lbrListSpn">{{inventory.partNumber}}</span></a></td> 
+            <td class="td-lbr-val"><a href="#/inventory/{{savedLocations}}/detail/{{inventory.inventoryID}}"><span class="lbrListSpn">{{inventory.description}}</span></a></td>
+            <td class="td-lbr-val"><a href="#/inventory/{{savedLocations}}/detail/{{inventory.inventoryID}}"><span class="lbrListSpn">{{inventory.quantity}}</span></a></td> 
+        </tr>                 
+    </tbody>
+</table>
